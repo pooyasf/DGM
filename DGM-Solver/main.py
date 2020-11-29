@@ -24,6 +24,7 @@ from net import *
 from sampler import *
 from loss import *
 
+#integration
 
 net = Net( NL = 2 , NN = 30 )
 net.to(torch.device("cuda:0"))  
