@@ -7,15 +7,13 @@ Created on Tue Sep 15 09:48:58 2020
 """
 
 from libs import *
-from sampler import *
-from loss import *
 from hook import *
 
 
 class Train():
 
     
-    def __init__(self , net , BATCH_SIZE , debug = False):
+    def __init__(self , net , loss , sampler , BATCH_SIZE , debug = False):
         
         
         
@@ -29,6 +27,8 @@ class Train():
               
         self.BATCH_SIZE = BATCH_SIZE
         self.net = net
+        self.criterion = loss.criterion
+        self.sample = sampler.Sample
         
         self.debug = debug
         
@@ -48,12 +48,12 @@ class Train():
         for e in range(epoch):
             
             
-            x , x_initial , x_boundry_0 , x_boundry_pi = Sampler(self.BATCH_SIZE)
+            x , x_initial , x_boundry_0 , x_boundry_pi = self.sample(self.BATCH_SIZE)
             
             
             x = Variable( x , requires_grad=True)
             optimizer.zero_grad()
-            loss , _ , _ , _ = criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
+            loss , _ , _ , _ = self.criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
             loss_avg = loss_avg + loss.item()
             loss.backward()
             optimizer.step()
@@ -68,9 +68,9 @@ class Train():
                 #history_validation_de.append( validate_DE()[0] )
                 
                 ## report detailed loss ##
-                x , x_initial , x_boundry_0 , x_boundry_pi = Sampler(2**10)
+                x , x_initial , x_boundry_0 , x_boundry_pi = self.sample(2**10)
                 x = Variable( x , requires_grad=True)
-                tl , dl , il , bl = criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
+                tl , dl , il , bl = self.criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
                 
                 self.history_tl.append( tl )
                 self.history_dl.append( dl )
