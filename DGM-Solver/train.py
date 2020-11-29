@@ -13,9 +13,7 @@ from hook import *
 class Train():
 
     
-    def __init__(self , net , loss , sampler , BATCH_SIZE , debug = False):
-        
-        
+    def __init__(self , net , heatequation , BATCH_SIZE , debug = False):
         
         
         self.history_mean_hooks = []
@@ -27,8 +25,7 @@ class Train():
               
         self.BATCH_SIZE = BATCH_SIZE
         self.net = net
-        self.criterion = loss.criterion
-        self.sample = sampler.Sample
+        self.model = heatequation
         
         self.debug = debug
         
@@ -48,12 +45,8 @@ class Train():
         for e in range(epoch):
             
             
-            x , x_initial , x_boundry_0 , x_boundry_pi = self.sample(self.BATCH_SIZE)
-            
-            
-            x = Variable( x , requires_grad=True)
             optimizer.zero_grad()
-            loss , _ , _ , _ = self.criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
+            loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
             loss_avg = loss_avg + loss.item()
             loss.backward()
             optimizer.step()
@@ -63,14 +56,12 @@ class Train():
                 loss = loss_avg/50
                 print("Epoch {} - lr {} -  loss: {}".format(e , lr , loss ))
                 loss_avg = 0
-                
-                
+
                 #history_validation_de.append( validate_DE()[0] )
                 
                 ## report detailed loss ##
-                x , x_initial , x_boundry_0 , x_boundry_pi = self.sample(2**10)
-                x = Variable( x , requires_grad=True)
-                tl , dl , il , bl = self.criterion( self.net , x , x_initial , x_boundry_0 , x_boundry_pi )
+
+                tl , dl , il , bl = self.model.calculateLoss( 2**10 )
                 
                 self.history_tl.append( tl )
                 self.history_dl.append( dl )
@@ -85,9 +76,7 @@ class Train():
                     
                     self.history_mean_hooks.append( mean )
 
-        
-                
-        
+
             
     def plot_report(self):
         
@@ -109,9 +98,7 @@ class Train():
         ax[3].plot( np.log(self.history_bl) )
         ax[3].set_title('boundry condition')
         
-        
-        
-    
+
     
     def hook_fn(self, m, i, o):
               self.hooks[m] = o.detach()
@@ -144,13 +131,3 @@ class Train():
             leg = ax.legend();
 
     
-    
-    
-    
-    
-        
-        
-        
-        
-        
- 
