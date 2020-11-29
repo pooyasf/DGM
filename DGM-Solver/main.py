@@ -23,6 +23,8 @@ from net import *
 #import hook
 import loss
 
+# i am going to add loss and sampler to this section so we can change every thing 
+# for different examples just from main file!
 
 net = Net( NL = 2 , NN = 30 )
 net.to(torch.device("cuda:0"))  
