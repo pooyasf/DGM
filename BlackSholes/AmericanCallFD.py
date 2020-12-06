@@ -12,11 +12,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 ################## Parameters:
+
     
-dt = 0.1
-dx = 0.1
+
 d = 1
 ep = 0.25
 ru = 0.75
@@ -25,6 +24,14 @@ c = 0.02
 k = 1
 T = 2
 X0 = 1
+
+
+## stable? How?
+## dx should be a lot bigger than dt for stability!
+dt = 0.001
+dx = 0.01
+
+(ep**2)*dt < dx**2
 
 M = int(2*k/dx)
 N = int(T/dt)
@@ -40,9 +47,9 @@ def g(x):
 
 ##################
 
-alpha  = (1/4)*(mu_**2)*(dt/dx)
+alpha  = (1/4)*(ep_**2)*(dt/dx)
 beta   = dt*r
-theta  = (ep_/4) * dt
+theta  = (mu_/4) * dt
 
 
 ############ A
@@ -76,11 +83,12 @@ for k in range(0,N-1):
     for j in range(1,2*M):
         b[j] = u[k,j-1]*(theta*j-alpha*j) + u[k,j]*(-1+2*alpha*j+beta) + u[k,j+1]*(-theta*j-alpha*j)
     x = Ai.dot(b)
+    # check for arbitrage
     x = g(x)
     u[k+1,:] = x.reshape(1,2*M+1)
 
 
-print(u[19,20])
+print( u[ u.shape[0]-1 , int(u.shape[1]/2) ])
 #plt.plot(np.linspace(-k,k,2*M+1), b)
 #plt.plot(np.linspace(-k,k,2*M+1), np.linspace(-k,k,2*M+1) )
 
