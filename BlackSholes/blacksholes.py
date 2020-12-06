@@ -65,7 +65,7 @@ class BlackSholes():
         ###
         
         ### under Free Boundry
-        x_boundry = torch.cat(( torch.rand( [size,1] )*self.T , torch.bernoulli( torch.zeros(size, 1)+0.5 )*self.MAX_X ) , dim = 1 ).cuda()
+        x_boundry = torch.cat(( torch.rand( [size,1] )*self.T , torch.rand( [size,1] )*self.MAX_X ) , dim = 1 ).cuda()
         compare = self.net(x_boundry) - self.g(x_boundry)
         mask = compare < 0
         mask = mask.repeat(1,2)

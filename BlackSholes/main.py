@@ -7,11 +7,6 @@ Created on Tue Sep 15 09:49:51 2020
 
 TO DO:
     
-    1- Histogram of weigths gradients
-    2- Std of activation functions
-    3- Compare result with exact solution (Done)
-    4- save result to folder
-    5- compare result with different net archs ( Done , but not diff. depth! )
     6 - Save weights to file for furthure analysis
     
 
