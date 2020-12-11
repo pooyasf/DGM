@@ -11,13 +11,13 @@ M=1600;
  % Number of time points
 N=100;
  % Number of share price points
-Smax=1;
+Smax=2;
  % Maximum share price considered
-Smin=-1;
+Smin=0;
  % Minimum share price considered
 T=2.;
  % Maturation (expiry)of contract
-E=0;
+E=1;
  % Exercise price of the underlying
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dt=(T/M);
