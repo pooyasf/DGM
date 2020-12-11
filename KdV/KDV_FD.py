@@ -12,7 +12,7 @@ TB = 1/np.pi
 TR = 30.4*TB
 
 N = 64
-M = 500000
+M = 778911
 
 h = 1/N        ## x axis
 k = 1.47e-06   ## time
@@ -47,11 +47,6 @@ for j in range(1,M-1):
                    - (delta**2)*(k/(h**3))*( uc(j,i+2) - 2*uc(j,i+1) + 2*uc(j,i-1) - uc(j,i-2) )
                                                  
 
-#plt.plot(u[10000,])
-#plt.plot(u[30000,])
-#plt.plot(u[50000,])
-#plt.plot(u[100000,])
-#plt.plot(u[200000,])
-plt.plot(u[400000,])
+plt.plot(u[M-1,])
 
 
