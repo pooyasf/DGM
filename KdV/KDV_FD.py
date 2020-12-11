@@ -14,8 +14,8 @@ TR = 30.4*TB
 N = 64
 M = 500000
 
-h = 1/N
-k = 1.47e-06
+h = 1/N        ## x axis
+k = 1.47e-06   ## time
 
 def uc(j,i):
     return u[j,i%(2*N)]
