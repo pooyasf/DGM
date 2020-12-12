@@ -11,13 +11,13 @@ M=1600;
  % Number of time points
 N=100;
  % Number of share price points
-Smax=2;
+Smax=1;
  % Maximum share price considered
-Smin=0;
+Smin=-1;
  % Minimum share price considered
 T=2.;
  % Maturation (expiry)of contract
-E=1;
+E=0;
  % Exercise price of the underlying
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dt=(T/M);
@@ -56,3 +56,4 @@ plot(Smin+ds*(0:(N-2)),v(1:(N-1),M)','g-',Smin+ds*(0:(N-2)),v(1:(N-1),1)','b-',S
 xlabel('S');
 ylabel('V(S,t)');
 title('European (blue) and American (red) Call Options');
+vam(51,1)
