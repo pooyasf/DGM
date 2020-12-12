@@ -36,7 +36,7 @@ class Net(nn.Module):
         
         
         for i, l in enumerate(self.linears):
-            h = 3*self.act( l(h) )
+            h = self.act( l(h) )
         
         out =            self.fc_output(h)
         
