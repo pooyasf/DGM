@@ -21,17 +21,14 @@ class Net(nn.Module):
         torch.nn.init.xavier_uniform_(self.fc_input.weight)
         
         
-        
         self.linears = nn.ModuleList([nn.Linear(self.NN, self.NN) for i in range(self.NL)])
         for i, l in enumerate(self.linears):    
             torch.nn.init.xavier_uniform_(l.weight)
         
         
-        self.fc_output = nn.Linear(self.NN,1)
+        self.fc_output = nn.Linear( self.NN , 1 )
         torch.nn.init.xavier_uniform_(self.fc_output.weight)
  
-        
-        
         self.act = torch.tanh
         
     def forward(self, x):
@@ -39,7 +36,7 @@ class Net(nn.Module):
         
         
         for i, l in enumerate(self.linears):
-            h = self.act( l(h) )
+            h = 3*self.act( l(h) )
         
         out =            self.fc_output(h)
         

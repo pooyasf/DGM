@@ -1,6 +1,6 @@
 from libs import *
 
-class Heat():
+class KDV():
     
     def __init__(self , net):
         
@@ -11,19 +11,19 @@ class Heat():
 
     def sample(self , size = 2**8 ):
          
-         x = torch.cat(( torch.rand( [size,1] )*self.MAX_T , torch.rand( [size,1] )*self.MAX_X ) , dim = 1 ).cuda()
-         x_initial = torch.cat(( torch.zeros(size, 1) , torch.rand( [size,1] )*self.MAX_X ) , dim = 1 ).cuda()
+         x = torch.cat(( torch.rand( [size,1] )*self.MAX_T , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
+         x_initial = torch.cat(( torch.zeros(size, 1) , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
 
-         rand_t = torch.rand( [size,1] )*MAX_T
-         x_boundry_start = torch.cat(( rand_t , torch.zeros(size, 1) ) , dim = 1 ).cuda()
-         x_boundry_end = torch.cat(( rand_t , torch.zeros(size, 1) + self.MAX_X ) , dim = 1 ).cuda()
+         rand_t = torch.rand( [size,1] )*self.MAX_T
+         x_boundry_start = torch.cat(( rand_t , torch.zeros(size, 1) - self.MAX_X/2 ) , dim = 1 ).cuda()
+         x_boundry_end = torch.cat(( rand_t , torch.zeros(size, 1) + self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
          
          return x , x_initial , x_boundry_start , x_boundry_end
     
     
     def criterion(self , x , x_initial , x_boundry_start , x_boundry_end):
         
-        d = torch.autograd.grad(net(x), x , grad_outputs=torch.ones_like(net(x)) ,\
+        d = torch.autograd.grad(self.net(x), x , grad_outputs=torch.ones_like(self.net(x)) ,\
                             create_graph=True , retain_graph = True)
         dt = d[0][:,0].reshape(-1,1)
         dx = d[0][:,1].reshape(-1,1)
@@ -35,11 +35,11 @@ class Heat():
         
         
         # Domain 
-        DO = ( dt + net(x)*dx + (self.epsilon**2)*dxxx )**2
+        DO = ( dt + self.net(x)*dx + (self.epsilon**2)*dxxx )**2
         # Terminal Condition
-        IC = ( torch.cos( np.pi*x_initial[:,1].reshape(-1,1) ) - net(x_initial) )**2
+        IC = ( torch.cos( np.pi*(x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda()   ) ) - self.net(x_initial) )**2
         # Boundry Condition
-        BC = ( net(x_boundry_start) - net(x_boundry_end) )**2
+        BC = ( self.net(x_boundry_start) - self.net(x_boundry_end) )**2
         
         return  DO , IC , BC
 

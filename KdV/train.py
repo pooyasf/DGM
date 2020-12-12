@@ -31,13 +31,13 @@ class Train():
         
         if self.debug == True:
             self.hooks = {}
-            
+            # monitoring activation value (out/in)?
             self.get_all_layers(self.net)
         
     
     def train(self , epoch , lr ):
                 
-        
+        ## on each new call of train we are reseting optimizer
         optimizer = optim.Adam(self.net.parameters(), lr)
         
         loss_avg = 0
@@ -46,7 +46,7 @@ class Train():
             
             
             optimizer.zero_grad()
-            loss , _ , _  = self.model.calculateLoss( self.BATCH_SIZE )
+            loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
             loss_avg = loss_avg + loss.item()
             loss.backward()
             optimizer.step()
@@ -61,7 +61,7 @@ class Train():
                 
                 ## report detailed loss ##
                 ## total loss , domain loss , initial condition loss , boundry loss
-                tl , dl , il , bl = self.model.calculateLoss( 2**10 )
+                tl , dl , il , bl = self.model.calculateLoss( 2**6 )
                 
                 self.history_tl.append( tl )
                 self.history_dl.append( dl )
