@@ -50,4 +50,4 @@ for j in range(1,M-1):
 plt.plot(u[M-1,])
 
 
-np.savetxt("kdv.csv", u, delimiter=",")
+#np.savetxt("kdv.csv", u, delimiter=",")

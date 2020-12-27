@@ -14,7 +14,8 @@ from net import *
 from kdv import *
 
 
-net = Net( NL = 2 , NN = 100 )
+#net = Net( NL = 10 , NN = 50 )
+net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
@@ -23,7 +24,7 @@ kdvequation = KDV(net)
     
 train = Train( net , kdvequation , BATCH_SIZE = 2**8 , debug = True )
     
-train.train( epoch = 10000 , lr = 0.0005 )
+train.train( epoch = 10000 , lr = 0.00005 )
 
 train.plot_report()
 train.plot_activation_mean()
@@ -64,8 +65,9 @@ plt.show()
 #%%
 
 x_terminal = torch.cat(( torch.zeros(len(y_range), 1) + MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
-
+x_initial  = torch.cat(( torch.zeros(len(y_range), 1) - MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
 fig = plt.figure()
+plt.plot( y_range , net( x_initial  ).cpu().detach() )
 plt.plot( y_range , net( x_terminal  ).cpu().detach() )
 
 
