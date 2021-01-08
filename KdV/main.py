@@ -14,7 +14,7 @@ from net import *
 from kdv import *
 
 
-#net = Net( NL = 10 , NN = 50 )
+#net = Net( NL = 3 , NN = 50 )
 net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
@@ -23,7 +23,7 @@ kdvequation = KDV(net)
 #register_hook(net)
     
 train = Train( net , kdvequation , BATCH_SIZE = 2**8 , debug = True )
-    
+
 train.train( epoch = 10000 , lr = 0.00005 )
 
 train.plot_report()
@@ -59,6 +59,9 @@ Z_surface = np.reshape(Z, (x_range.shape[0], y_range.shape[0]))
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 ax.plot_surface( _X, _Y, Z_surface,  cmap=cm.YlOrBr_r, edgecolor='gray', linewidth=0.004, antialiased=False)
+ax.set_xlabel('T')
+ax.set_ylabel('X')
+ax.set_zlabel('Wave')
 plt.show()
 
 

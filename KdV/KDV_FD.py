@@ -25,7 +25,8 @@ u = np.array( np.zeros( (2*N)*M ).reshape(M,2*N) )
 
 
 for i in range(0,2*N):
-    u[0,i] = np.cos(np.pi*i*h)
+    #u[0,i] = np.cos(np.pi*i*h)
+    u[0,i] = (1/np.cosh(i*h))**2
 
 j = 0
 

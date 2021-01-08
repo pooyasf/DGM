@@ -20,23 +20,19 @@ from blacksholes import *
 
 #integration
 
-net = Net( NL = 2 , NN = 30 )
+net = Net( NL = 2 , NN = 80 )
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
 bsequation = BlackSholes(net)
 #register_hook(net)
     
-train = Train( net , bsequation , BATCH_SIZE = 2**12 , debug = True )
+train = Train( net , bsequation , BATCH_SIZE = 2**8 , debug = True )
     
-train.train( epoch = 10000 , lr = 0.001 )
+train.train( epoch = 10000 , lr = 0.0001 )
 
 train.plot_report()
 train.plot_activation_mean()
-
-
-
-#%%
 
 
 #%%% SURFACE PLOT
@@ -65,6 +61,9 @@ Z_surface = np.reshape(Z, (x_range.shape[0], y_range.shape[0]))
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 ax.plot_surface( _X, _Y, Z_surface,  cmap=cm.YlOrBr_r, edgecolor='gray', linewidth=0.004, antialiased=False)
+ax.set_xlabel('Time')
+ax.set_ylabel('Asset  Price')
+ax.set_zlabel('Option Price')
 plt.show()
 
 #%%%
