@@ -35,11 +35,12 @@ class KDV():
         
         
         # Domain 
+        #DO = torch.tensor(0).float().cuda() 
         DO = ( dt + self.net(x)*dx + (self.epsilon**2)*dxxx )**2
         # Terminal Condition
-        #IC = ( torch.cos( np.pi*(x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda()   ) ) - self.net(x_initial) )**2
+        IC = ( torch.cos( np.pi*(x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda() ) ) - self.net(x_initial) )**2
         #  one soliton initial condition ,, check wolfram demonstration project
-        IC = ( (1/torch.cosh( (x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda()   ) ))**2 - self.net(x_initial) )**2
+        #IC = ( (1/torch.cosh( (x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda()   ) ))**2 - self.net(x_initial) )**2
         # Boundry Condition
         BC = ( self.net(x_boundry_start) - self.net(x_boundry_end) )**2
         

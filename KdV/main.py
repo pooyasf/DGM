@@ -14,17 +14,23 @@ from net import *
 from kdv import *
 
 
-#net = Net( NL = 3 , NN = 50 )
-net = DGMNet()
+net = Net( NL = 4 , NN = 10 )
+#net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
 kdvequation = KDV(net)
 #register_hook(net)
-    
+
 train = Train( net , kdvequation , BATCH_SIZE = 2**8 , debug = True )
 
-train.train( epoch = 10000 , lr = 0.00005 )
+#%%%
+
+train.train( epoch = 1000 , lr = 0.001 )
+
+
+#%%
+
 
 train.plot_report()
 train.plot_activation_mean()
@@ -38,6 +44,8 @@ MAX_T = 1.145
 
 y_range = np.linspace(-MAX_X/2, MAX_X/2, 40, dtype=np.float)
 x_range = np.linspace( -MAX_T/2 , MAX_T/2 , 40, dtype=np.float)
+
+#%%
 
 data = np.empty((2,1))
 
