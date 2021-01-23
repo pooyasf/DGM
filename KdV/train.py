@@ -38,24 +38,21 @@ class Train():
     def train(self , epoch , lr ):
                 
         ## on each new call of train we are reseting optimizer
-        #optimizer = optim.Adam(self.net.parameters(), lr)
-        optimizer = optim.LBFGS(self.net.parameters(), lr)
+        optimizer = optim.Adam(self.net.parameters(), lr)
+        #optimizer = optim.LBFGS(self.net.parameters(), lr)
         
         
         loss_avg = 0
         
         for e in range(epoch):
             
-            def closure():
-                optimizer.zero_grad()
-                loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
-                #loss_avg = loss_avg + loss.item()
-                loss.backward()
-                return loss
-            optimizer.step(closure)
             
+            optimizer.zero_grad()
             loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
             loss_avg = loss_avg + loss.item()
+            loss.backward()
+            optimizer.step()
+
             
             if e % 50 == 49:
                 

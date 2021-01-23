@@ -10,7 +10,7 @@ class Advection():
          
          x = (torch.rand( [size,1] )*xe  ).cuda()
             
-         x_initial = torch.zeros(size, 1).cuda() 
+         x_initial = torch.zeros(1, 1).cuda() 
          
          
          return x , x_initial
@@ -25,7 +25,7 @@ class Advection():
         
         # Domain 
         DO = ( dx - 2*np.pi*torch.cos(2*np.pi*x)*torch.cos(4*np.pi*x) + 4*np.pi*torch.sin(4*np.pi*x)*torch.sin(2*np.pi*x) )**2
-        IC  = ( self.net(x_initial)  - torch.ones(len(x_initial), 1).cuda() )**2
+        IC  = ( self.net(x_initial)  - torch.ones(1, 1).cuda() )**2
         
         return  DO , IC
 

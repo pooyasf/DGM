@@ -45,13 +45,21 @@ class Train():
             
             
             optimizer.zero_grad()
-            loss , _ , _  = self.model.calculateLoss( self.BATCH_SIZE )
+            loss , loss_DO , loss_Initial  = self.model.calculateLoss( self.BATCH_SIZE )
             loss_avg = loss_avg + loss.item()
-            loss.backward()
+            if e < 1:
+                print("Pre-training Inital Value")
+                print(loss_Initial.item())
+                loss_Initial.backward()
+            else:
+                loss.backward()
+            optimizer.step()            
+            
+            
             # accessing gradient of weights during learning
             # to do : collect and plot histogram!
             
-            optimizer.step()
+            
             
             if e % 50 == 49:
                 
@@ -59,10 +67,10 @@ class Train():
                 print("Epoch {} - lr {} -  loss: {}".format(e , lr , loss ))
                 loss_avg = 0
 
-                print(torch.mean(self.net.fc_input.weight.grad))
-                print(torch.mean(self.net.linears[0].weight.grad))
-                print(torch.mean(self.net.linears[1].weight.grad))
-                print(torch.mean(self.net.fc_output.weight.grad))
+                #print(torch.mean(self.net.fc_input.weight.grad))
+                #print(torch.mean(self.net.linears[0].weight.grad))
+                #print(torch.mean(self.net.linears[1].weight.grad))
+                #print(torch.mean(self.net.fc_output.weight.grad))
                 #history_validation_de.append( validate_DE()[0] )
                 
                 ## report detailed loss ##

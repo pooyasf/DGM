@@ -14,7 +14,7 @@ from net import *
 from kdv import *
 
 
-net = Net( NL = 4 , NN = 10 )
+net = Net( NL = 5 , NN = 50 )
 #net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
@@ -26,7 +26,7 @@ train = Train( net , kdvequation , BATCH_SIZE = 2**8 , debug = True )
 
 #%%%
 
-train.train( epoch = 1000 , lr = 0.001 )
+train.train( epoch = 2000 , lr = 0.001 )
 
 
 #%%

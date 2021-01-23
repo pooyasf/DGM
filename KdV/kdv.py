@@ -12,11 +12,11 @@ class KDV():
     def sample(self , size = 2**8 ):
          
          x = torch.cat(( torch.rand( [size,1] )*self.MAX_T - self.MAX_T/2 , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
-         x_initial = torch.cat(( torch.zeros(size, 1) , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
+         x_initial = torch.cat(( torch.zeros(size, 1) - self.MAX_T/2 , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
 
          rand_t = torch.rand( [size,1] )*self.MAX_T - self.MAX_T/2
          x_boundry_start = torch.cat(( rand_t , torch.zeros(size, 1) - self.MAX_X/2 ) , dim = 1 ).cuda()
-         x_boundry_end = torch.cat(( rand_t , torch.zeros(size, 1) + self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
+         x_boundry_end = torch.cat(( rand_t , torch.zeros(size, 1)   + self.MAX_X/2 ) , dim = 1 ).cuda()
          
          return x , x_initial , x_boundry_start , x_boundry_end
     

@@ -15,9 +15,8 @@ from net import *
 #import hook
 from advection import *
 
-#integration
 
-net = Net( NL = 2 , NN = 20 )
+net = Net( NL = 4 , NN = 20 )
 net.to(torch.device("cuda:0"))  
 
 advection = Advection(net)
@@ -27,7 +26,7 @@ train = Train( net , advection , BATCH_SIZE = 2**8 , debug = True )
     
 #%%
 
-train.train( epoch = 1000 , lr = 0.01 )
+train.train( epoch = 3000 , lr = 0.001 )
 
 
 #%%
