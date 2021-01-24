@@ -49,7 +49,8 @@ class Train():
             
             optimizer.zero_grad()
             loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
-            loss_avg = loss_avg + loss.item()
+            # float release memory , more info: https://pytorch.org/docs/stable/notes/faq.html
+            loss_avg = loss_avg + float(loss.item())
             loss.backward()
             optimizer.step()
 
@@ -65,11 +66,11 @@ class Train():
                 ## report detailed loss ##
                 ## total loss , domain loss , initial condition loss , boundry loss
                 tl , dl , il , bl = self.model.calculateLoss( 2**6 )
-                
-                self.history_tl.append( tl )
-                self.history_dl.append( dl )
-                self.history_il.append( il )
-                self.history_bl.append( bl )
+                # convert to float to release memory of GPU
+                self.history_tl.append( float(tl) )
+                self.history_dl.append( float(dl) )
+                self.history_il.append( float(il) )
+                self.history_bl.append( float(bl) )
                 
                 
                 if self.debug == True:

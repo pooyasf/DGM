@@ -14,7 +14,7 @@ from net import *
 from kdv import *
 
 
-net = Net( NL = 5 , NN = 50 )
+net = Net( NL = 3 , NN = 32 )
 #net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
@@ -22,11 +22,11 @@ net.to(torch.device("cuda:0"))
 kdvequation = KDV(net)
 #register_hook(net)
 
-train = Train( net , kdvequation , BATCH_SIZE = 2**8 , debug = True )
+train = Train( net , kdvequation , BATCH_SIZE = 2**7 , debug = True )
 
 #%%%
 
-train.train( epoch = 2000 , lr = 0.001 )
+train.train( epoch = 2000 , lr = 0.005 )
 
 
 #%%
@@ -44,6 +44,14 @@ MAX_T = 1.145
 
 y_range = np.linspace(-MAX_X/2, MAX_X/2, 40, dtype=np.float)
 x_range = np.linspace( -MAX_T/2 , MAX_T/2 , 40, dtype=np.float)
+
+
+
+x_terminal = torch.cat(( torch.zeros(len(y_range), 1) + MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
+x_initial  = torch.cat(( torch.zeros(len(y_range), 1) - MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
+fig = plt.figure()
+plt.plot( y_range , net( x_initial  ).cpu().detach() )
+plt.plot( y_range , net( x_terminal  ).cpu().detach() )
 
 #%%
 
@@ -75,11 +83,6 @@ plt.show()
 
 #%%
 
-x_terminal = torch.cat(( torch.zeros(len(y_range), 1) + MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
-x_initial  = torch.cat(( torch.zeros(len(y_range), 1) - MAX_T/2 , torch.tensor(y_range).float().reshape(-1,1) ) , dim = 1 ).cuda()
-fig = plt.figure()
-plt.plot( y_range , net( x_initial  ).cpu().detach() )
-plt.plot( y_range , net( x_terminal  ).cpu().detach() )
 
 
 

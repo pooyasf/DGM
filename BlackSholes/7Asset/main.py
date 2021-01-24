@@ -27,7 +27,7 @@ train = Train( net , bsequation , BATCH_SIZE = 2**9 , debug = True )
 
 #%%   
  
-train.train( epoch = 3000 , lr = 0.0001 )
+train.train( epoch = 3000 , lr = 0.001 )
 
 
 #%%

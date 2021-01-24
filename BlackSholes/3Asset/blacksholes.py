@@ -31,29 +31,7 @@ class BlackSholes():
         '''
         Sampling function
 
-        Parameters
-        ----------
-        ts : TYPE, optional
-            DESCRIPTION. The default is 0.
-        te : TYPE, optional
-            DESCRIPTION. The default is np.pi.
-        xs : TYPE, optional
-            DESCRIPTION. The default is 0.
-        xe : TYPE, optional
-            DESCRIPTION. The default is np.pi.
-        size : TYPE, optional
-            DESCRIPTION. The default is 2**8.
 
-        Returns
-        -------
-        x : TYPE
-            DESCRIPTION.
-        x_initial : TYPE
-            DESCRIPTION.
-        x_boundry_start : TYPE
-            DESCRIPTION.
-        x_boundry_end : TYPE
-            DESCRIPTION.
 
         '''
          
@@ -86,32 +64,10 @@ class BlackSholes():
         '''
         Loss function that helps network find solution to equation
 
-        Parameters
-        ----------
-        x : TYPE
-            DESCRIPTION.
-        x_initial : TYPE
-            DESCRIPTION.
-        x_boundry_0 : TYPE
-            DESCRIPTION.
-        x_boundry_pi : TYPE
-            DESCRIPTION.
-
-        Returns
-        -------
-        DO : TYPE
-            DESCRIPTION.
-        IC : TYPE
-            DESCRIPTION.
-        BD_0 : TYPE
-            DESCRIPTION.
-        BD_pi : TYPE
-            DESCRIPTION.
-
         '''
         
         d = torch.autograd.grad(self.net(x), x , grad_outputs=torch.ones_like(self.net(x)) ,\
-                            create_graph=True , retain_graph = True)
+                            create_graph=True )
         
         dt  = d[0][:,0].reshape(-1,1)
         dx1 = d[0][:,1].reshape(-1,1)
@@ -176,23 +132,6 @@ class BlackSholes():
         
         Helper function that Sample and Calculate loss
 
-        Parameters
-        ----------
-        size : TYPE, optional
-            DESCRIPTION. The default is 2**8.
-        train : TYPE, optional
-            DESCRIPTION. The default is True.
-
-        Returns
-        -------
-        TYPE
-            DESCRIPTION.
-        TYPE
-            DESCRIPTION.
-        TYPE
-            DESCRIPTION.
-        TYPE
-            DESCRIPTION.
 
         '''        
         x , x_terminal , x_boundry = self.sample(size)

@@ -46,21 +46,14 @@ class Train():
             
             optimizer.zero_grad()
             loss , loss_DO , loss_Initial  = self.model.calculateLoss( self.BATCH_SIZE )
-            loss_avg = loss_avg + loss.item()
-            if e < 1:
-                print("Pre-training Inital Value")
-                print(loss_Initial.item())
-                loss_Initial.backward()
-            else:
-                loss.backward()
-            optimizer.step()            
-            
+            loss_avg = loss_avg + float(loss.item())
+            loss.backward()
+            optimizer.step()          
             
             # accessing gradient of weights during learning
             # to do : collect and plot histogram!
             
-            
-            
+
             if e % 50 == 49:
                 
                 loss = loss_avg/50
@@ -77,9 +70,9 @@ class Train():
 
                 tl , dl , il = self.model.calculateLoss( 2**10 )
                 
-                self.history_tl.append( tl )
-                self.history_dl.append( dl )
-                self.history_il.append( il )
+                self.history_tl.append( float(tl) )
+                self.history_dl.append( float(dl) )
+                self.history_il.append( float(il) )
                 
                 
                 if self.debug == True:

@@ -31,14 +31,15 @@ class Net(nn.Module):
         #torch.nn.init.xavier_uniform_(self.fc_output.weight)
  
         
-        self.act = torch.tanh
+        self.act = torch.torch
+
         
     def forward(self, x):
-        h = self.act( self.fc_input(x)  )
+        h = self.act( self.fc_input(x)  ) 
         
         
         for i, l in enumerate(self.linears):
-            h = self.act( l(h) )
+            h = self.act( l(h) ) 
         
         out =            self.fc_output(h)
         

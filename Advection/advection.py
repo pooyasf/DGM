@@ -2,7 +2,7 @@ from libs import *
 
 class Advection():
     
-    def __init__(self , net):
+    def __init__(self , net ):
         
         self.net = net
 
@@ -19,7 +19,7 @@ class Advection():
     def criterion(self , x  , x_initial ):
         
         d = torch.autograd.grad(self.net(x), x , grad_outputs=torch.ones_like(self.net(x)) ,\
-                                create_graph=True , retain_graph = True)
+                                create_graph=True)
         
         dx = d[0].reshape(-1,1)
         
@@ -37,7 +37,7 @@ class Advection():
         DO , IC  = self.criterion( x , x_boundry_0 )
         
         if train == True:
-            return  torch.mean( DO + IC ) , torch.mean( DO ) ,  torch.mean( IC )  
+            return  torch.mean( DO ) + IC , torch.mean( DO ) ,  torch.mean( IC )  
         else:
             return  DO , IC 
         

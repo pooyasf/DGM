@@ -16,17 +16,17 @@ from net import *
 from advection import *
 
 
-net = Net( NL = 4 , NN = 20 )
+net = Net( NL = 1 , NN = 10 )
 net.to(torch.device("cuda:0"))  
 
 advection = Advection(net)
 #register_hook(net)
     
-train = Train( net , advection , BATCH_SIZE = 2**8 , debug = True )
+train = Train( net , advection , BATCH_SIZE = 2**5 , debug = True )
     
 #%%
 
-train.train( epoch = 3000 , lr = 0.001 )
+train.train( epoch = 10000 , lr = 0.0001 )
 
 
 #%%

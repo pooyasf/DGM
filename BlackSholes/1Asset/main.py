@@ -20,7 +20,7 @@ from blacksholes import *
 
 #integration
 
-net = Net( NL = 2 , NN = 80 )
+net = Net( NL = 2 , NN = 20 )
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
@@ -28,8 +28,13 @@ bsequation = BlackSholes(net)
 #register_hook(net)
     
 train = Train( net , bsequation , BATCH_SIZE = 2**8 , debug = True )
-    
-train.train( epoch = 10000 , lr = 0.0001 )
+
+#%%
+
+train.train( epoch = 3000 , lr = 0.000005 )
+
+
+#%%
 
 train.plot_report()
 train.plot_activation_mean()
@@ -68,9 +73,9 @@ plt.show()
 
 #%%%
 
-print( 'Value at 0' , net( torch.tensor( [ 0.0 , 1 ] ).cuda() ) )
+print( 'Value at 0' , float(net( torch.tensor( [ 0.0 , 1. ] ).cuda() )) )
 
-print( 'Value at expire' , net( torch.tensor( [ 2. , 1. ] ).cuda() ) )
+print( 'Value at expire' , float(net( torch.tensor( [ 2. , 1. ] ).cuda() )) )
 
 #%% PLOTS
 
@@ -146,47 +151,13 @@ print( 'Value at expire' , net( torch.tensor( [ 2. , 1. ] ).cuda() ) )
 #%% Running for different archs
 
 
+torch.save(net.state_dict(), './model')
 
-# L_2 = np.zeros((30,1) , dtype = np.float)
-# L_inf = np.zeros((30,1) , dtype = np.float)
+#%%
 
-# for nn in range(5,30) :
-
-#     net = Net( NL = 1 , NN = nn )
-#     net.to(torch.device("cuda:0"))  
-    
-#     #register_hook(net)
-    
-#     train = Train( net , BATCH_SIZE = 2**8 , debug = True )
-    
-#     train.train( epoch = 1000 , lr = 0.001 )
-    
-    
-#     t_range = np.linspace(0, MAX_T , 100, dtype=np.float)
-#     x_range = np.linspace(0, MAX_X , 100, dtype=np.float)
-
-#     _T, _X = np.meshgrid(t_range, x_range, indexing='ij')
-#     x = torch.tensor( np.concatenate( (_T.reshape(-1,1) , _X.reshape(-1,1)) , axis = 1 ) )
-#     x = Variable(x , requires_grad = True).cuda().float()
-
-#     z = net(x).cpu().detach() - exact_solution( _T.reshape(-1,1) , _X.reshape(-1,1) )
-    
-    
-    
-#     L_2[nn]    = torch.mean( z**2 )
-#     L_inf[nn]  = torch.max( z**2 )
-    
-#     print(nn)
-
-
-
-# fig, ax = plt.subplots()
-# ax.plot(range(5,30),L_2[5:30] , '--r' ,  label=' L2 ')
-# ax.plot(range(5,30),L_inf[5:30] ,  label=' Sup Norm ')
-# ax.legend()
-# ax.set_title(' One layer Neural Net ')
-# ax.set_xlabel(' number of neurons ', fontsize=10)
-# ax.set_ylabel(' error ', fontsize=10)
+net = TheModelClass(*args, **kwargs)
+net.load_state_dict(torch.load('./model'))
+net.eval()
 
 
 

@@ -18,7 +18,7 @@ class Net(nn.Module):
         self.NN = NN
         ### Number of stocks + time
         ### ( t , x0 , x1 , ... , xn )
-        self.Input = 1 + 3
+        self.Input = 1 + 7
         
         self.fc_input = nn.Linear(self.Input,self.NN)
         torch.nn.init.xavier_uniform_(self.fc_input.weight)

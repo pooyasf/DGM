@@ -47,7 +47,7 @@ class Train():
             
             optimizer.zero_grad()
             loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
-            loss_avg = loss_avg + loss.item()
+            loss_avg = loss_avg + float(loss.item())
             loss.backward()
             optimizer.step()
             
@@ -63,10 +63,10 @@ class Train():
 
                 tl , dl , il , bl = self.model.calculateLoss( 2**10 )
                 
-                self.history_tl.append( tl )
-                self.history_dl.append( dl )
-                self.history_il.append( il )
-                self.history_bl.append( bl )
+                self.history_tl.append( float(tl) )
+                self.history_dl.append( float(dl) )
+                self.history_il.append( float(il) )
+                self.history_bl.append( float(bl) )
                 
                 
                 if self.debug == True:
@@ -92,7 +92,7 @@ class Train():
         
         
         ax[2].plot( np.log(self.history_il) )
-        ax[2].set_title('initial condition')
+        ax[2].set_title('terminal condition')
         
         
         ax[3].plot( np.log(self.history_bl) )
