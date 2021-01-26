@@ -42,6 +42,84 @@ class Net(nn.Module):
         
         return out 
     
+class DynaNet(nn.Module):
+    
+    def __init__(self  ):
+        super(DynaNet, self).__init__()
+        
+       
+        self.fc_input = nn.Linear(2,64)
+        
+        self.l1 = nn.Linear(64,64)
+        
+        self.l2 = nn.Linear(64,64)
+        
+        self.fc_output = nn.Linear( 64 , 1 )
+        
+        self.SWITCH = 0
+ 
+        self.act = torch.tanh
+        
+    def forward(self, x):
+        
+        h1 = self.act( self.fc_input(x)  )
+        h2 = self.act( self.l1(h1) )
+        h3 = self.act( self.l2(h2) )
+        
+        # just first layer!
+        if self.SWITCH == 0:
+            out = self.fc_output(h1)
+        if self.SWITCH == 1:
+            out = self.fc_output(h2)
+        # full network
+        if self.SWITCH == 2:
+            out = self.fc_output(h3)    
+        
+        return out 
+
+
+class DividedNet(nn.Module):
+    
+    def __init__(self):
+        super(DividedNet, self).__init__()
+        
+        self.input_t = nn.Linear(1,8)
+        self.t_1 = nn.Linear(8,8)
+        self.t_out = nn.Linear(8,2)
+        
+        self.input_x = nn.Linear(1,8)
+        self.x_1 = nn.Linear(8,8)
+        self.x_out = nn.Linear(8,2)
+
+        self.input_xt = nn.Linear(4,32)
+        self.xt_1 = nn.Linear(32,32)
+        self.output = nn.Linear( 32 , 1 )
+        
+        self.act = torch.sigmoid
+        
+    def forward(self, x):
+
+        t = x[:,0].reshape(-1,1)
+        x = x[:,1].reshape(-1,1)
+
+        t_h = self.act( self.input_t(t)  )
+        t_h = self.act( self.t_1(t_h) )
+        t_o = self.t_out( t_h )
+        
+        x_h = self.act( self.input_t(x)  )
+        x_h = self.act( self.x_1(x_h) )
+        x_o = self.x_out( x_h )
+        
+        in_xt = torch.cat( (t_o,x_o) , axis = 1 ) 
+        
+        xt_h = self.act( self.input_xt( in_xt ) )
+        xt_h = self.act( self.xt_1(xt_h) )
+
+        out = self.output(xt_h)
+        
+        return out 
+    
+
 
 
 class DGMNet(nn.Module):

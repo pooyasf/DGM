@@ -11,6 +11,9 @@ class KDV():
 
     def sample(self , size ):
          
+         #seed = torch.rand(1)*1000
+         #x = torch.tensor(chaospy.create_sobol_samples(size,8,seed).reshape(size,8)*self.MAX_X).cuda().float()
+        
          x = torch.cat(( torch.rand( [size,1] )*(self.MAX_T) - self.MAX_T/2 , torch.rand( [size,1] )*self.MAX_X - self.MAX_X/2 ) , dim = 1 ).cuda()
          #r_normal = torch.normal(self.MAX_T/2, 1, size=(size*2, 1))
          #ix_upper = (r_normal < 1.145/2)&(r_normal > -1.145/2)
@@ -46,10 +49,10 @@ class KDV():
         #DO = torch.tensor(0).float().cuda() 
         DO = ( dt + self.net(x)*dx + (self.epsilon**2)*dxxx )**2
         # Terminal Condition
-        #IC = ( torch.cos( np.pi*(x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda() ) ) - self.net(x_initial) )**2
+        IC = ( torch.cos( np.pi*(x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda() ) ) - self.net(x_initial) )**2
         #  one soliton initial condition ,, check wolfram demonstration project
         #IC = ( (1/torch.cosh( (x_initial[:,1].reshape(-1,1) + torch.ones(len(x_initial[:,1]), 1).cuda()   ) ))**2 - self.net(x_initial) )**2
-        IC = ( self.sech( x_initial[:,1].reshape(-1,1) )**2  -  self.net(x_initial)  )**2
+        #IC = ( self.sech( x_initial[:,1].reshape(-1,1) )**2  -  self.net(x_initial)  )**2
         # Boundry Condition
         BC = ( self.net(x_boundry_start) - self.net(x_boundry_end) )**2
         

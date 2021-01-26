@@ -5,7 +5,8 @@ Created on Tue Sep 15 09:49:51 2020
 
 @author: Pooya
 
-
+/home/berdpen/Documents/University/ThesisRazvaan/GITHUB/DGM/BlackSholes/7Asset
+https://www.mathworks.com/help/fininst/basketsensbyls.html
 """
 
 from libs import *
@@ -16,19 +17,22 @@ from blacksholes import *
 
 #integration
 
-net = Net( NL = 3 , NN = 30 )
+net = Net( NL = 4 , NN = 16 )
+#net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
 bsequation = BlackSholes(net)
 #register_hook(net)
     
-train = Train( net , bsequation , BATCH_SIZE = 2**9 , debug = True )
+train = Train( net , bsequation , BATCH_SIZE = 2**10 , debug = True )
 
 #%%   
- 
-train.train( epoch = 3000 , lr = 0.001 )
 
+train.train( epoch = 1000 , lr = 0.001 )
+train.train( epoch = 1000 , lr = 0.0001 )
+train.train( epoch = 1000 , lr = 0.001 )
+train.train( epoch = 1000 , lr = 0.0001 )
 
 #%%
 
@@ -39,21 +43,34 @@ train.plot_activation_mean()
 
 #%%%
 
-print( 'Value at 0' , net( torch.tensor( [ 0. , 1. , 1. , 1. ] ).cuda() ) )
+option_xt = torch.tensor( [[ 0. , 1. , 1. , 1. , 1. , 1. , 1. , 1.  ]] ).cuda()
 
+print( 'Option Value' , net.train( option_xt ).cuda() )
 
 
 #%% save
 
 
-torch.save(net.state_dict(), './model3Assets')
+torch.save(net.state_dict(), './model7AssetsMLP')
 
 #%%
 
 net = TheModelClass(*args, **kwargs)
-net.load_state_dict(torch.load('./modelmodel3Assets'))
+net.load_state_dict(torch.load('./modelmodel7Assets'))
 net.eval()
 
+
+#%%
+x = torch.tensor([[0,1,1,1,1,1,1,1]]).cuda().float()
+x = Variable( x , requires_grad=True)
+
+
+a , b , c = bsequation.criterion( x, torch.tensor([[0,0,0,0,0,0,0,0]]).cuda().float() , torch.tensor([[0,0,0,0,0,0,0,0]]).cuda().float())
+
+x , _ , _ = bsequation.sample()
+plt.hist(x.cpu()[:,0])
+
+#%%
 
 
 

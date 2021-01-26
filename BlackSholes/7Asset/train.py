@@ -37,9 +37,7 @@ class Train():
     
     def train(self , epoch , lr ):
                 
-        
         optimizer = optim.Adam(self.net.parameters(), lr)
-        
         loss_avg = 0
         
         for e in range(epoch):
@@ -50,6 +48,7 @@ class Train():
             loss_avg = loss_avg + float(loss.item())
             loss.backward()
             optimizer.step()
+
             
             if e % 50 == 49:
                 

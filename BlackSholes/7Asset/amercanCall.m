@@ -21,7 +21,7 @@ E=0;
  % Exercise price of the underlying
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dim = 3; % number of dimension!
+dim = 7; % number of dimension!
 ru = 0.75; % corrolation!
 sigma_ = sqrt( ( dim*sigma*sigma + dim*(dim-1)*ru*sigma*sigma )/(dim*dim) );  % Volatility of the underlying
 mu_ = (r-d) - 0.5*(sigma_*sigma_) + 0.5*(sigma*sigma);

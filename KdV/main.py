@@ -4,7 +4,7 @@
 Created on Tue Sep 15 09:49:51 2020
 
 @author: Pooya    
-
+/home/berdpen/Documents/University/ThesisRazvaan/GITHUB/DGM/KdV
 """
 
 from libs import *
@@ -14,7 +14,9 @@ from net import *
 from kdv import *
 
 
-net = Net( NL = 3 , NN = 32 )
+net = Net( NL = 6 , NN = 16 )
+#net = DividedNet()
+#net = DynaNet()
 #net = DGMNet()
 net.to(torch.device("cuda:0"))  
 
@@ -26,8 +28,36 @@ train = Train( net , kdvequation , BATCH_SIZE = 2**7 , debug = True )
 
 #%%%
 
-train.train( epoch = 2000 , lr = 0.005 )
+train.train( epoch = 1000 , lr = 0.01 )
+train.train( epoch = 5000 , lr = 0.001 )
+train.train( epoch = 1000 , lr = 0.0005 )
+train.train( epoch = 1000 , lr = 0.001 )
+train.train( epoch = 5000 , lr = 0.0001 )
+train.train( epoch = 2000 , lr = 0.0005 )
+train.train( epoch = 5000 , lr = 0.0001 )
 
+#%%
+
+net.SWITCH = 0
+
+#%%
+
+net.fc_input.weight.requires_grad = True
+net.fc_input.bias.requires_grad = True
+
+net.SWITCH = 1
+
+#%%
+
+print(net.SWITCH)
+
+net.l1.weight.requires_grad = True
+net.l1.bias.requires_grad = True
+
+
+net.SWITCH = 2
+
+print(net.SWITCH)
 
 #%%
 
@@ -42,8 +72,8 @@ train.plot_activation_mean()
 MAX_X = 2
 MAX_T = 1.145
 
-y_range = np.linspace(-MAX_X/2, MAX_X/2, 40, dtype=np.float)
-x_range = np.linspace( -MAX_T/2 , MAX_T/2 , 40, dtype=np.float)
+y_range = np.linspace(-MAX_X/2, MAX_X/2, 100, dtype=np.float)
+x_range = np.linspace( -MAX_T/2 , MAX_T/2 , 100, dtype=np.float)
 
 
 
@@ -81,10 +111,42 @@ ax.set_zlabel('Wave')
 plt.show()
 
 
+
+#%% save
+
+
+torch.save(net.state_dict(), './modelMLP_3_128')
+
+
+#%%
+
+net.input_t.weight.requires_grad = False
+net.input_t.bias.requires_grad = False
+
+net.t_1.weight.requires_grad = False
+net.t_1.bias.requires_grad = False
+
+net.t_out.weight.requires_grad = False
+net.t_out.bias.requires_grad = False
+
+
+net.input_x.weight.requires_grad = False
+net.input_x.bias.requires_grad = False
+
+net.x_1.weight.requires_grad = False
+net.x_1.bias.requires_grad = False
+
+net.x_out.weight.requires_grad = False
+net.x_out.bias.requires_grad = False
+
+
+
+
 #%%
 
 
-
+for param in net.parameters():
+    print(param)
 
 
 
