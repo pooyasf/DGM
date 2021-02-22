@@ -18,3 +18,9 @@ This is the schematic of the building blocks of this code:
 <p align="center">
 <img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="400" >
 </p>
+
+
+### Requirements
+
+Python 3.7.7
+Pytorch 1.6
