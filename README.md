@@ -6,13 +6,13 @@ You can also find a finite difference matlab code that is useful when you are go
 
 There are two other examples in this repository. Heat equation and advection equation. You can see the animation of these two equations during training of neural net:
 
-<img src="https://github.com/pooyasf/DGM/blob/main/Advection/anim/advection_anim.gif?raw=true" width="300" height="300">
+<img src="https://github.com/pooyasf/DGM/blob/main/Advection/anim/advection_anim.gif?raw=true" width="320">
 
 
-<img src="https://github.com/pooyasf/DGM/blob/main/Heat/anim/heat_anim.gif?raw=true" width="300" height="300">
+<img src="https://github.com/pooyasf/DGM/blob/main/Heat/anim/heat_anim.gif?raw=true" width="320" >
 
 
 This is the schematic of the building blocks of this code:
 
 
-<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="300" height="300">
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="300" >
