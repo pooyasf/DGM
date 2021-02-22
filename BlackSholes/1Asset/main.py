@@ -1,24 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 15 09:49:51 2020
-
-@author: Pooya
-
-TO DO:
-    
-    6 - Save weights to file for furthure analysis
-    
-
-"""
-
 from libs import *
 from train import *
 from net import *
 #import hook
 from blacksholes import *
 
-#integration
 
 net = Net( NL = 2 , NN = 20 )
 net.to(torch.device("cuda:0"))  

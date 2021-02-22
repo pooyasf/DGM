@@ -1,14 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 15 09:49:51 2020
-
-@author: Pooya
-
-/home/berdpen/Documents/University/ThesisRazvaan/GITHUB/DGM/BlackSholes/7Asset
-https://www.mathworks.com/help/fininst/basketsensbyls.html
-"""
-
 from libs import *
 from train import *
 from net import *

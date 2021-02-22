@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 15 09:49:51 2020
-
-@author: Pooya
-
-
-"""
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -16,7 +7,7 @@ from net import *
 #import hook
 from heat import *
 
-#integration
+
 
 net = Net( NL = 2 , NN = 20 )
 net.to(torch.device("cuda:0"))  

@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 15 09:49:51 2020
-
-@author: Pooya
-
-
-"""
-
 from libs import *
 from train import *
 from net import *
