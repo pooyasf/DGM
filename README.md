@@ -16,5 +16,5 @@ There are two other examples in this repository. Heat equation and advection equ
 This is the schematic of the building blocks of this code:
 
 <p align="center">
-<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="300" >
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="400" >
 </p>
