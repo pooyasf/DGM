@@ -8,6 +8,8 @@ Created on Tue Sep 15 09:49:51 2020
 TO DO:
     
 """
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from libs import *
 from train import *
@@ -16,7 +18,7 @@ from net import *
 from advection import *
 
 
-net = Net( NL = 1 , NN = 10 )
+net = Net( NL = 1 , NN = 20 )
 net.to(torch.device("cuda:0"))  
 
 advection = Advection(net)
@@ -26,7 +28,7 @@ train = Train( net , advection , BATCH_SIZE = 2**5 , debug = True )
     
 #%%
 
-train.train( epoch = 10000 , lr = 0.0001 )
+train.train( epoch = 3000 , lr = 0.0005 )
 
 
 #%%

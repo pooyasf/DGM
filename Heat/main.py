@@ -5,17 +5,10 @@ Created on Tue Sep 15 09:49:51 2020
 
 @author: Pooya
 
-TO DO:
-    
-    1- Histogram of weigths gradients
-    2- Std of activation functions
-    3- Compare result with exact solution (Done)
-    4- save result to folder
-    5- compare result with different net archs ( Done , but not diff. depth! )
-    6 - Save weights to file for furthure analysis
-    
 
 """
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from libs import *
 from train import *
@@ -25,7 +18,7 @@ from heat import *
 
 #integration
 
-net = Net( NL = 2 , NN = 30 )
+net = Net( NL = 2 , NN = 20 )
 net.to(torch.device("cuda:0"))  
 
 ## providing sampler with net so it can accept/reject based on net and other criterions
@@ -33,14 +26,15 @@ heatequation = Heat(net)
 #register_hook(net)
     
 train = Train( net , heatequation , BATCH_SIZE = 2**8 , debug = True )
-    
-train.train( epoch = 200 , lr = 0.001 )
 
+#%%
+  
+train.train( epoch = 3000 , lr = 0.0001 )
+
+
+#%%
 train.plot_report()
 train.plot_activation_mean()
-
-
-
 
 
 
@@ -57,6 +51,7 @@ _T, _X = np.meshgrid(t_range, x_range, indexing='ij')
 
 x = torch.tensor( np.concatenate( (_T.reshape(-1,1) , _X.reshape(-1,1)) , axis = 1 ) )
 x = Variable(x , requires_grad = True).cuda().float()
+
 tl , dl , il , bl = heatequation.criterion( x , x , x , x )
 Z_surface = torch.reshape(tl, (t_range.shape[0], x_range.shape[0]))
 
@@ -78,7 +73,6 @@ CB = fig.colorbar(CS, shrink=0.8, extend='both')
 ax.set_title(' solution ')
 ax.set_xlabel(' t ', fontsize=10)
 ax.set_ylabel(' x ', fontsize=10)
-
 
 z = net(x).cpu().detach() - heatequation.exact_solution( _T.reshape(-1,1) , _X.reshape(-1,1) )
 mse_error = torch.mean( z**2 )

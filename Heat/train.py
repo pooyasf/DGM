@@ -47,7 +47,7 @@ class Train():
             
             optimizer.zero_grad()
             loss , _ , _ , _ = self.model.calculateLoss( self.BATCH_SIZE )
-            loss_avg = loss_avg + loss.item()
+            loss_avg = loss_avg + float(loss.item())
             loss.backward()
             optimizer.step()
             
@@ -59,9 +59,43 @@ class Train():
 
                 #history_validation_de.append( validate_DE()[0] )
                 
+                plt.ioff()
+                
+                y_range = np.linspace(0, np.pi, 40, dtype=np.float)
+                x_range = np.linspace(0, np.pi, 40, dtype=np.float)
+                
+                data = np.empty((2,1))
+                
+                Z = []
+                for _x in x_range:
+                    data[0] = _x
+                    for _y in y_range:
+                        data[1] = _y
+                        indata = torch.Tensor(data.reshape(1,-1)).cuda()
+                        Zdata = self.net(indata).detach().cpu()
+                        Z.append(Zdata)
+                
+                
+                _X, _Y = np.meshgrid(x_range, y_range, indexing='ij')
+                
+                Z_surface = np.reshape(Z, (x_range.shape[0], y_range.shape[0]))
+                
+                # plot
+                fig = plt.figure()
+                ax = fig.gca(projection='3d')
+                ax.set_zlim([-0.2,1.2])
+                ax.plot_surface( _X, _Y, Z_surface,  cmap=cm.YlOrBr_r, edgecolor='black', linewidth=0.0004, antialiased=True)
+                ax.set_xlabel(' T ')
+                ax.set_ylabel(' X ')
+                ax.set_zlabel(' H ')
+                #ax.legend(fontsize=8)
+                path = "./anim/%i.png" % e
+                plt.savefig(path)
+                plt.close(fig)
+                
                 ## report detailed loss ##
 
-                tl , dl , il , bl = self.model.calculateLoss( 2**10 )
+                tl , dl , il , bl = self.model.calculateLoss( 2**8 )
                 
                 self.history_tl.append( tl )
                 self.history_dl.append( dl )

@@ -31,7 +31,7 @@ class Net(nn.Module):
         #torch.nn.init.xavier_uniform_(self.fc_output.weight)
  
         
-        self.act = torch.torch
+        self.act = torch.tanh
 
         
     def forward(self, x):

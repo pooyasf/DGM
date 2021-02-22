@@ -18,17 +18,17 @@ class Net(nn.Module):
         self.NN = NN
         
         self.fc_input = nn.Linear(2,self.NN)
-        torch.nn.init.xavier_uniform_(self.fc_input.weight)
+        #torch.nn.init.xavier_uniform_(self.fc_input.weight)
         
         
         
         self.linears = nn.ModuleList([nn.Linear(self.NN, self.NN) for i in range(self.NL)])
-        for i, l in enumerate(self.linears):    
-            torch.nn.init.xavier_uniform_(l.weight)
+        #for i, l in enumerate(self.linears):    
+        #    torch.nn.init.xavier_uniform_(l.weight)
         
         
         self.fc_output = nn.Linear(self.NN,1)
-        torch.nn.init.xavier_uniform_(self.fc_output.weight)
+        #torch.nn.init.xavier_uniform_(self.fc_output.weight)
  
         
         

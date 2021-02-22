@@ -14,7 +14,7 @@ class Heat():
          x_initial = torch.cat(( torch.zeros(size, 1)  , torch.rand( [size,1] )*xe  ) , dim = 1 ).cuda()
             
          x_boundry_start = torch.cat(( torch.rand( [size,1] )*te , torch.zeros(size, 1)  ) , dim = 1 ).cuda()
-         x_boundry_end = torch.cat(( torch.rand( [size,1] )*te  , torch.zeros(size, 1)  ) , dim = 1 ).cuda()
+         x_boundry_end = torch.cat(( torch.rand( [size,1] )*te  , torch.zeros(size, 1) + xe  ) , dim = 1 ).cuda()
          
          return x , x_initial , x_boundry_start , x_boundry_end
     
@@ -22,12 +22,12 @@ class Heat():
     def criterion(self , x , x_initial , x_boundry_0 , x_boundry_pi):
         
         d = torch.autograd.grad(self.net(x), x , grad_outputs=torch.ones_like(self.net(x)) ,\
-                                create_graph=True , retain_graph = True)
+                                create_graph=True )
         dt = d[0][:,0].reshape(-1,1)
         dx = d[0][:,1].reshape(-1,1)
         # du/dxdx
         dxx = torch.autograd.grad(dx, x , grad_outputs=torch.ones_like(dx) ,\
-                                  retain_graph = True)[0][:,1].reshape(-1,1)
+                                  create_graph = True)[0][:,1].reshape(-1,1)
         
         # Domain 
         DO = ( dt - dxx )**2

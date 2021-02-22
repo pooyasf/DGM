@@ -59,7 +59,25 @@ class Train():
                 loss = loss_avg/50
                 print("Epoch {} - lr {} -  loss: {}".format(e , lr , loss ))
                 loss_avg = 0
+                
+                
+                # save for animation!
+                
+                plt.ioff()
+                MAX_X = 1
 
+                x_range = torch.tensor(np.linspace(0, MAX_X , 100, dtype=np.float)).reshape(-1,1).cuda().float()
+
+                y = self.net(x_range).cpu().detach()
+                fig, ax = plt.subplots()
+                ax.set_ylim([-0.5,2.5])
+                ax.plot(x_range.cpu(),y,label='Neural Net')
+                ax.plot(x_range.cpu(),self.model.exact_solution(x_range.cpu()),'--',color='lightgray',label='Exact')
+                ax.legend(fontsize=8)
+                path = "./anim/%i.png" % e
+                plt.savefig(path)
+                plt.close(fig)
+                
                 #print(torch.mean(self.net.fc_input.weight.grad))
                 #print(torch.mean(self.net.linears[0].weight.grad))
                 #print(torch.mean(self.net.linears[1].weight.grad))
