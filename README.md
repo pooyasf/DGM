@@ -27,3 +27,5 @@ This is the schematic of the building blocks of this code:
 
 Python 3.7.7 <br>
 Pytorch 1.6
+
+For colaboration , suggestion or question feel free to contact me at: pooya[dot]saffarieh[at]student[dot]sharif[dot]ir
