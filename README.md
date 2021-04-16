@@ -1,8 +1,14 @@
 # DGM
 
-Implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469
+This is a library that could facilitate experimenting with Deep Galerkin algorithm. You could define new PDEs/ODEs and just call the approporiate functions. The knowledge of designing a loss function for your applicqtion is required. The library outputs several useful stuff.
 
-You can also find a finite difference matlab code that is useful when you are going to see how accurate are your results.
+1- Loss function value (for differential operator, boundary condition and etc. )
+2- Neural Network solution for the given PDE
+3- Layer by Layer mean activation value for the defined neural network (during training)
+
+You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469 in this repo.
+
+There is also a finite difference matlab code that is useful for measuring the accuracy of your result.
 
 There are two other examples in this repository. Heat equation and advection equation. You can see the animation of these two equations during training of neural net:
 <br>
@@ -14,6 +20,17 @@ There are two other examples in this repository. Heat equation and advection equ
 </p>
 
 <br>
+
+This is the schematic of the building blocks of this code:
+<br><br>
+
+<p align="center">
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="400" >
+</p>
+
+<br><br>
+
+
 This is the schematic of the building blocks of this code:
 <br><br>
 
