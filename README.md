@@ -1,12 +1,12 @@
 # DGM
 
-This is a library that could facilitate experimenting with Deep Galerkin algorithm. You could define new PDEs/ODEs and just call the approporiate functions. The knowledge of designing a loss function for your applicqtion is required. The library outputs several useful stuff.
+This is a library that could facilitate experimentation with Deep Galerkin algorithm. for learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff:
 
 1- Loss function value (for differential operator, boundary condition and etc. )
-2- Neural Network solution for the given PDE
-3- Layer by Layer mean activation value for the defined neural network (during training)
+2- Neural Network solution for the given equation
+3- Layer by Layer mean activation value (during training) for the given neural network ( like the method dicussed in Xavier's initialization paper )
 
-You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469 in this repo.
+You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469 .
 
 There is also a finite difference matlab code that is useful for measuring the accuracy of your result.
 
@@ -21,11 +21,11 @@ There are two other examples in this repository. Heat equation and advection equ
 
 <br>
 
-This is the schematic of the building blocks of this code:
+Mean activation value for different layers of the neural net (during training):
 <br><br>
 
 <p align="center">
-<img src="https://github.com/pooyasf/DGM/blob/main/Docs/LibraryDiagram.png?raw=true" width="400" >
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/heat_layers_activ_value.png?raw=true" width="400" >
 </p>
 
 <br><br>
