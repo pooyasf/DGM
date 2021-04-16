@@ -1,10 +1,10 @@
 # DGM
 
-This is a library that could facilitate experimentation with Deep Galerkin algorithm. for learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff:
+This is a library that could facilitate experimentation with Deep Galerkin algorithm. For learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff: <br>
 
-1- Loss function value (for differential operator, boundary condition and etc. )
-2- Neural Network solution for the given equation
-3- Layer by Layer mean activation value (during training) for the given neural network ( like the method dicussed in Xavier's initialization paper )
+1- Loss function value (for differential operator, boundary condition and etc. ) <br>
+2- Neural Network solution for the given equation <br>
+3- Layer by Layer mean activation value (during training) for the given neural network ( like the method dicussed in Xavier's initialization paper ) <br>
 
 You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469 .
 
