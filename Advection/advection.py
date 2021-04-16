@@ -8,7 +8,10 @@ class Advection():
 
     def sample(self , xs = 0 , xe = 1 , size = 2**8 ):
          
-         x = (torch.rand( [size,1] )*xe  ).cuda()
+         #beta
+         x = torch.tensor(np.random.beta(2, 2, size=[size,1])).cuda().float()
+         #uniform
+         #x = (torch.rand( [size,1] )*xe  ).cuda()
             
          x_initial = torch.zeros(1, 1).cuda() 
          

@@ -8,7 +8,7 @@ from net import *
 from advection import *
 
 
-net = Net( NL = 1 , NN = 20 )
+net = Net( NL = 2 , NN = 20 )
 net.to(torch.device("cuda:0"))  
 
 advection = Advection(net)
@@ -18,7 +18,8 @@ train = Train( net , advection , BATCH_SIZE = 2**5 , debug = True )
     
 #%%
 
-train.train( epoch = 3000 , lr = 0.0005 )
+
+train.train( epoch = 100 , lr = 0.001 )
 
 
 #%%
@@ -41,3 +42,13 @@ plt.plot(x_range.cpu(),advection.exact_solution(x_range.cpu()),'--')
 #%% Error - diff exact and obtained solution
 
 plt.plot( x_range.cpu() , y - advection.exact_solution(x_range.cpu()) )
+
+#%%
+
+torch.mean(y - advection.exact_solution(x_range.cpu()))
+
+#%%
+
+plt.hist( np.random.beta(2, 2, size=[10000,1]) ,100)
+
+#%matplotlib auto
