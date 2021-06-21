@@ -1,16 +1,14 @@
 # DGM
 
-This is a library that could facilitate experimentation with Deep Galerkin algorithm. For learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff: <br>
+This is a library that could facilitate experimentation with the Deep Galerkin algorithm. For learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff: 
 
-1- Loss function value (for differential operator, boundary condition and etc. ) <br>
-2- Neural Network solution for the given equation <br>
-3- Layer by Layer mean activation value (during training) for the given neural network ( like the method dicussed in Xavier's initialization paper ) <br>
+1- Loss function value (for the differential operator, boundary condition, etc. ) 
+2- Neural Network solution for the given equation 
+3- Layer by Layer mean activation value (during training) for the given neural network ( like the method discussed in Xavier's initialization paper ) 
 
-You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469 .
-
-There is also a finite difference matlab code that is useful for measuring the accuracy of your result.
-
-There are two other examples in this repository. Heat equation and advection equation. You can see the animation of these two equations during training of neural net:
+You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469.
+There is also a finite-difference Matlab code that is useful for measuring the accuracy of your result.
+There are two other examples in this repository. The heat equation and advection equation. You can see the animation of these two equations during training of neural net:
 <br>
 <p align="center">
 <img src="https://github.com/pooyasf/DGM/blob/main/Advection/anim/advection_anim.gif?raw=true" width="320">
