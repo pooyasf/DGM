@@ -2,6 +2,7 @@
 
 This library allows you to experiment with the Deep Galerkin algorithm. For finding a PDE or ODE solution you simply define a loss function. Then, by calling train(), the neural network learns the solution. It outputs several useful information:
 <br>
+<br>
 1- Loss function value (for the differential operator, boundary condition, etc.) <br>
 2- Neural Network solution for the given equation  <br>
 3- Layer by Layer mean activation value (during training) for the neural network <br>
