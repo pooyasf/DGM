@@ -1,14 +1,14 @@
 # DGM
 
-This is a library that could facilitate experimentation with the Deep Galerkin algorithm. For learning the solution you could define new PDEs/ODEs and just call the train function. The knowledge of designing an appropriate loss function for your application is required. The library outputs several useful stuff: 
-
-1- Loss function value (for the differential operator, boundary condition, etc. ) 
-2- Neural Network solution for the given equation 
-3- Layer by Layer mean activation value (during training) for the given neural network ( like the method discussed in Xavier's initialization paper ) 
-
-You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469.
-There is also a finite-difference Matlab code that is useful for measuring the accuracy of your result.
-There are two other examples in this repository. The heat equation and advection equation. You can see the animation of these two equations during training of neural net:
+This library allows you to experiment with the Deep Galerkin algorithm. For finding a PDE or ODE solution you simply define a loss function. Then, by calling train(), the neural network learns the solution. It outputs several useful information:
+<br>
+1- Loss function value (for the differential operator, boundary condition, etc.) <br>
+2- Neural Network solution for the given equation  <br>
+3- Layer by Layer mean activation value (during training) for the neural network <br>
+<br>
+You can also find implementation code for Free Boundry PDE (American Option) up to 7 assets (9 dimensions) with the method discussed at https://arxiv.org/abs/1708.07469. There is also a finite-difference Matlab code that is useful for measuring the accuracy of your result.
+<br>
+In this repository, there are two low-dimensional examples: the heat equation and the advection equation. The following animation illustrates the two equations as they are trained:
 <br>
 <p align="center">
 <img src="https://github.com/pooyasf/DGM/blob/main/Advection/anim/advection_anim.gif?raw=true" width="320">
@@ -29,7 +29,7 @@ Mean activation value for different layers of the neural net (during training):
 <br><br>
 
 
-This is the schematic of the building blocks of this code:
+Here are the building blocks of this code:
 <br><br>
 
 <p align="center">
@@ -43,4 +43,4 @@ This is the schematic of the building blocks of this code:
 Python 3.7.7 <br>
 Pytorch 1.6
 
-For collaboration , suggestion or question feel free to contact me at: pooya[dot]saffarieh[at]student[dot]sharif[dot]ir
+Any questions? contact me at: pooya[dot]saffarieh[at]student[dot]sharif[dot]ir
