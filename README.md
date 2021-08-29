@@ -1,4 +1,4 @@
-# DGM
+# Deep Learning of High-Dimensional Partial Differential Equations
 
 This library allows you to experiment with the Deep Galerkin algorithm. For finding a PDE or ODE solution you simply define a loss function. Then, by calling train(), the neural network learns the solution. It outputs several useful information:
 <br>
