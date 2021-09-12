@@ -12,10 +12,10 @@ You can also find implementation code for Free Boundry PDE (American Option) up 
 In this repository, there are two low-dimensional examples: the heat equation and the advection equation. The following animation illustrates the two equations as they are trained:
 <br>
 <p align="center">
-<img src="https://github.com/pooyasf/DGM/blob/main/Advection/anim/advection_anim.gif?raw=true" width="320">
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/advection_anim.gif?raw=true" width="320">
 
 
-<img src="https://github.com/pooyasf/DGM/blob/main/Heat/anim/heat_anim.gif?raw=true" width="320">
+<img src="https://github.com/pooyasf/DGM/blob/main/Docs/heat_anim.gif?raw=true" width="320">
 </p>
 
 <br>

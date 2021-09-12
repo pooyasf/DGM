@@ -8,18 +8,15 @@ class Advection():
 
     def sample(self , xs = 0 , xe = 1 , size = 2**8 ):
          
-         #beta
-         x = torch.tensor(np.random.beta(2, 2, size=[size,1])).cuda().float()
          #uniform
-         #x = (torch.rand( [size,1] )*xe  ).cuda()
+         x = (torch.rand( [size,1] )*xe  ).cuda()
             
          x_initial = torch.zeros(1, 1).cuda() 
-         
          
          return x , x_initial
     
     
-    def criterion(self , x  , x_initial ):
+    def criterion(self , x  , x_initial):
         
         d = torch.autograd.grad(self.net(x), x , grad_outputs=torch.ones_like(self.net(x)) ,\
                                 create_graph=True)

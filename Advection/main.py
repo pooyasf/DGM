@@ -1,3 +1,4 @@
+#%%
 import os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,7 +20,7 @@ train = Train( net , advection , BATCH_SIZE = 2**5 , debug = True )
 #%%
 
 
-train.train( epoch = 100 , lr = 0.001 )
+train.train( epoch = 2000 , lr = 0.001 )
 
 
 #%%

@@ -54,9 +54,9 @@ class Train():
             # to do : collect and plot histogram!
             
 
-            if e % 50 == 49:
+            if e % 20 == 19:
                 
-                loss = loss_avg/50
+                loss = loss_avg/20
                 print("Epoch {} - lr {} -  loss: {}".format(e , lr , loss ))
                 loss_avg = 0
                 
@@ -68,12 +68,22 @@ class Train():
 
                 x_range = torch.tensor(np.linspace(0, MAX_X , 100, dtype=np.float)).reshape(-1,1).cuda().float()
 
+                # ploting neural net during training
                 y = self.net(x_range).cpu().detach()
+                
+                #ploting loss during training
+                x_range_grad = Variable( x_range , requires_grad = True )
+                x_error , _ = self.model.criterion(x_range_grad,torch.tensor([0]).float().cuda())
+                
+                x_error = x_error.cpu().detach()/100
+
                 fig, ax = plt.subplots()
                 ax.set_ylim([-0.5,2.5])
                 ax.plot(x_range.cpu(),y,label='Neural Net')
+                ax.plot(x_range.cpu(),x_error,label='Loss')
+                # ploting exact solution along the other metrics
                 ax.plot(x_range.cpu(),self.model.exact_solution(x_range.cpu()),'--',color='lightgray',label='Exact')
-                ax.legend(fontsize=8)
+                ax.legend(fontsize=8,loc=2)
                 path = "./anim/%i.png" % e
                 plt.savefig(path)
                 plt.close(fig)
